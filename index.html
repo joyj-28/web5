@@ -1,0 +1,678 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DailyNews - Online Newspaper</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f5f8;
+    color: #222;
+}
+
+/* Navigation */
+nav {
+    padding: 18px 7%;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px #0001;
+}
+
+.logo, h2, h3 {
+    color: #12345a;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+nav a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #333;
+}
+
+nav a:hover {
+    color: #e63946;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    background: #dfeaf5;
+    padding: 35px 7%;
+    gap: 25px;
+}
+
+.hero > div {
+    width: 50%;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+    color: #12345a;
+}
+
+.hero span {
+    color: #e63946;
+}
+
+.hero p {
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.hero img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+img {
+    width: 100%;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    background: #12345a;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover {
+    background: #e63946;
+}
+
+/* Sections */
+section {
+    padding: 45px 7%;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.sub {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* News Search */
+.search-box {
+    display: flex;
+    gap: 10px;
+    max-width: 650px;
+    margin: 0 auto 25px;
+}
+
+.search-box input {
+    flex: 1;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font: inherit;
+}
+
+/* Preference Form */
+.box {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #0001;
+}
+
+.row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    color: #12345a;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+textarea {
+    height: 80px;
+    margin-top: 10px;
+    resize: vertical;
+}
+
+.submit {
+    width: 100%;
+    margin-top: 12px;
+}
+
+#result {
+    display: none;
+    background: #e7f3ff;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+    line-height: 1.8;
+}
+
+/* News Cards */
+.news-section {
+    background: white;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px #0002;
+}
+
+.card-img {
+    height: 165px;
+    background: #dfeaf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+}
+
+.content {
+    padding: 17px;
+}
+
+.category {
+    color: #e63946;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.content h3 {
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.content p {
+    color: #555;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+.info {
+    color: #777;
+    font-size: 13px;
+    margin: 10px 0;
+}
+
+.card button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#noResults {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Features */
+.feature {
+    text-align: center;
+    padding: 25px 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #0001;
+}
+
+.icon {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    margin-top: 10px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background: #12345a;
+    color: white;
+    padding: 25px;
+    line-height: 1.8;
+}
+
+/* Mobile Responsive */
+@media (max-width: 700px) {
+    nav {
+        display: block;
+    }
+
+    nav div {
+        margin: 10px 0;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 8px 10px 0 0;
+    }
+
+    .hero {
+        display: block;
+    }
+
+    .hero > div {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .row {
+        display: block;
+    }
+
+    .group {
+        margin-bottom: 15px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="logo">📰 DailyNews</div>
+    <div>
+        <a href="#home">Home</a>
+        <a href="#preferences">Preferences</a>
+        <a href="#news">Latest News</a>
+        <a href="#features">Features</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+    <div>
+        <h1>
+            Your World,<br>
+            <span>Your News.</span>
+        </h1>
+
+        <p>
+            Stay informed with the latest headlines, breaking stories,
+            technology updates, sports, business, and entertainment news.
+        </p>
+
+        <button onclick="goToNews()">
+            Explore Latest News →
+        </button>
+    </div>
+
+    <div>
+        <img
+            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1000&q=80"
+            alt="Newspapers and news reading">
+    </div>
+</section>
+
+<!-- News Preferences -->
+<section id="preferences">
+    <h2 class="title">Choose Your News Preferences</h2>
+    <p class="sub">
+        Tell us what you are interested in reading.
+    </p>
+
+    <div class="box">
+        <form id="newsForm">
+            <div class="row">
+                <div class="group">
+                    <label for="name">Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your name"
+                        required>
+                </div>
+
+                <div class="group">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="group">
+                    <label for="category">News Category</label>
+                    <select id="category" required>
+                        <option value="">Select category</option>
+                        <option>All</option>
+                        <option>National</option>
+                        <option>World</option>
+                        <option>Technology</option>
+                        <option>Sports</option>
+                        <option>Business</option>
+                        <option>Entertainment</option>
+                    </select>
+                </div>
+
+                <div class="group">
+                    <label for="frequency">Reading Frequency</label>
+                    <select id="frequency">
+                        <option>Daily</option>
+                        <option>Weekly</option>
+                        <option>Occasionally</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="message">Additional Interests</label>
+            <textarea
+                id="message"
+                placeholder="What news topics would you like to read?"></textarea>
+
+            <button class="submit" type="submit">
+                Find News
+            </button>
+        </form>
+
+        <div id="result" aria-live="polite">
+            <p id="output"></p>
+        </div>
+    </div>
+</section>
+
+<!-- Latest News -->
+<section class="news-section" id="news">
+    <h2 class="title">Latest News</h2>
+    <p class="sub">
+        Explore our sample news articles by category.
+    </p>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="search"
+            placeholder="Search news headlines..."
+            aria-label="Search news headlines">
+
+        <select id="filter" aria-label="Filter by category">
+            <option value="All">All Categories</option>
+            <option value="National">National</option>
+            <option value="World">World</option>
+            <option value="Technology">Technology</option>
+            <option value="Sports">Sports</option>
+            <option value="Business">Business</option>
+            <option value="Entertainment">Entertainment</option>
+        </select>
+    </div>
+
+    <div class="cards" id="newsCards"></div>
+
+    <p id="noResults">No matching articles found.</p>
+</section>
+
+<!-- Features -->
+<section id="features">
+    <h2 class="title">Why Choose DailyNews?</h2>
+    <p class="sub">News made simple and accessible.</p>
+
+    <div class="cards">
+        <div class="feature">
+            <div class="icon">🗞️</div>
+            <h3>Latest Headlines</h3>
+            <p>Browse a collection of news stories in one place.</p>
+        </div>
+
+        <div class="feature">
+            <div class="icon">🔎</div>
+            <h3>Easy Search</h3>
+            <p>Search headlines and filter stories by category.</p>
+        </div>
+
+        <div class="feature">
+            <div class="icon">📱</div>
+            <h3>Responsive Design</h3>
+            <p>Read comfortably on desktop, tablet, and mobile.</p>
+        </div>
+
+        <div class="feature">
+            <div class="icon">🎯</div>
+            <h3>Personal Preferences</h3>
+            <p>Choose the topics you are most interested in.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <h3 style="color:white;">📰 DailyNews</h3>
+    <p>Read • Discover • Stay Informed</p>
+    <p>&copy; 2026 DailyNews. Educational demonstration website.</p>
+</footer>
+
+<script>
+// Sample article data for demonstration
+const articles = [
+    {
+        category: "National",
+        icon: "🇮🇳",
+        title: "National News and Updates",
+        description: "Explore sample headlines about national events, public services, and community developments."
+    },
+    {
+        category: "World",
+        icon: "🌍",
+        title: "Around the World",
+        description: "Discover sample stories about international events, countries, and global developments."
+    },
+    {
+        category: "Technology",
+        icon: "💻",
+        title: "Technology and Innovation",
+        description: "Read about sample technology topics, digital tools, and new innovations."
+    },
+    {
+        category: "Sports",
+        icon: "🏆",
+        title: "Sports Highlights",
+        description: "Explore sample sports coverage, tournaments, player performances, and results."
+    },
+    {
+        category: "Business",
+        icon: "📈",
+        title: "Business and Economy",
+        description: "Learn about sample business topics, markets, companies, and economic trends."
+    },
+    {
+        category: "Entertainment",
+        icon: "🎬",
+        title: "Entertainment Buzz",
+        description: "Discover sample entertainment stories about films, television, and popular culture."
+    }
+];
+
+// Render article cards
+function displayNews() {
+    const searchText =
+        document.getElementById("search").value.toLowerCase();
+
+    const selectedCategory =
+        document.getElementById("filter").value;
+
+    const filteredArticles = articles.filter(article => {
+        const matchesSearch =
+            article.title.toLowerCase().includes(searchText) ||
+            article.description.toLowerCase().includes(searchText) ||
+            article.category.toLowerCase().includes(searchText);
+
+        const matchesCategory =
+            selectedCategory === "All" ||
+            article.category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    const newsCards = document.getElementById("newsCards");
+    newsCards.innerHTML = "";
+
+    filteredArticles.forEach(article => {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const imageArea = document.createElement("div");
+        imageArea.className = "card-img";
+        imageArea.textContent = article.icon;
+
+        const content = document.createElement("div");
+        content.className = "content";
+
+        const category = document.createElement("div");
+        category.className = "category";
+        category.textContent = article.category;
+
+        const heading = document.createElement("h3");
+        heading.textContent = article.title;
+
+        const description = document.createElement("p");
+        description.textContent = article.description;
+
+        const info = document.createElement("div");
+        info.className = "info";
+        info.textContent = "Sample article • DailyNews";
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "Read More";
+        button.addEventListener("click", () => {
+            alert(
+                article.title +
+                "\n\nThis is a sample article card for the website demonstration."
+            );
+        });
+
+        content.append(category, heading, description, info, button);
+        card.append(imageArea, content);
+        newsCards.appendChild(card);
+    });
+
+    document.getElementById("noResults").style.display =
+        filteredArticles.length === 0 ? "block" : "none";
+}
+
+// Search and category filter
+document.getElementById("search")
+    .addEventListener("input", displayNews);
+
+document.getElementById("filter")
+    .addEventListener("change", displayNews);
+
+// Scroll to news
+function goToNews() {
+    document.getElementById("news").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+// News preferences form
+document.getElementById("newsForm")
+    .addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const category =
+            document.getElementById("category").value;
+
+        const frequency =
+            document.getElementById("frequency").value;
+
+        const message =
+            document.getElementById("message").value.trim();
+
+        const result = document.getElementById("result");
+        const output = document.getElementById("output");
+
+        output.textContent =
+            "Thank you, " + name + "! Your news preferences have been submitted. " +
+            "Category: " + category + ". " +
+            "Reading frequency: " + frequency + ". " +
+            "Additional interests: " + (message || "None") + ". " +
+            "Email: " + email + ".";
+
+        result.style.display = "block";
+
+        // Display articles from the chosen category
+        document.getElementById("filter").value = category;
+        displayNews();
+
+        document.getElementById("news").scrollIntoView({
+            behavior: "smooth"
+        });
+    });
+
+// Show articles on initial page load
+displayNews();
+</script>
+
+</body>
+</html>
